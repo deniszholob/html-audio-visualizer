@@ -1,0 +1,57 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background: #333;
+    color: #ccc;
+}
+
+.section {
+    min-height: 100px;
+    width: 100%;
+    padding: 20px;
+    position: relative;
+}
+
+.audio-visualizer {
+    height: 400px;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    /* height: 200px; */
+    /* width: 400px; */
+}
+
+#audioStream {
+    position: absolute;
+    left: 0;
+    padding: 0 40px;
+    bottom: 30px;
+    width: 100%;
+}
+
+
+/* ========== */
+.header{
+    color: white;
+    text-align: center;
+}
+.visualizer-settings h2{
+    color: white;
+}
+.input-group {
+    padding: 2px;
+}
+.input-group > * {
+    display: inline-block;
+    width: 150px;
+}
+.input-group > *:first-child {
+    width: 100px;
+}
+.input-group > *:first-child:after {
+    content: ':';
+}

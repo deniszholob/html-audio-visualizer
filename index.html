@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Html Audio Visualizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="visualizer-settings.js"></script>
+    <script src="visualizer.js"></script>
+</head>
+
+<body>
+    <h1 class="header">HTML/JS Audio Visualizer</h1>
+    <p>Music streamed from: <a id="musicUrl" href="#" target="_blank">?</a></p>
+    <div class="section audio-visualizer">
+        <canvas id="audioCanvas"></canvas>
+        <audio id="audioStream" controls></audio>
+    </div>
+    <div class="section visualizer-settings">
+        <h2>Settings</h2>
+        <div class="input-group">
+            <label for="clr_bg">BG Color</label>
+            <input id="clr_bg" name="clr_bg" type="color" onchange="setBgColor(value)"/>
+        </div>
+        <div class="input-group">
+            <label for="clr_bar1">Bar Color</label>
+            <input id="clr_bar1" name="clr_bar1" type="color" onchange="setBarColor1(value)"/>
+        </div>
+        <div class="input-group">
+            <label for="clr_bar2">Bar Color Secondary</label>
+            <input id="clr_bar2" name="clr_bar2" type="color" onchange="setBarColor2(value)"/>
+        </div>
+        <div class="input-group">
+            <label for="txt_spacing">Bar Spacing</label>
+            <input id="txt_spacing" name="txt_spacing" type="number" onchange="setBarSpacing(value)"/>
+        </div>
+        <div class="input-group">
+            <label for="bool_spaceWrap">Bar Space Wrap</label>
+            <input id="bool_spaceWrap" name="bool_spaceWrap" type="checkbox" onchange="doBarSpaceWrap()"/>
+        </div>
+    </div>
+</body>
+
+</html>
