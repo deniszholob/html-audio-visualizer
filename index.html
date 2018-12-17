@@ -34,8 +34,28 @@
             <input id="clr_bar2" name="clr_bar2" type="color" onchange="setBarColor2(value)"/>
         </div>
         <div class="input-group">
+            <label for="txt_samples">Samples (Bars)</label>
+            <select id="txt_samples" name="txt_samples" onchange="setSamples(value)">
+                <option value="32">32</option>
+                <option value="64">64</option>
+                <option value="128">128</option>
+                <option value="256">256</option>
+                <option value="512">512</option>
+                <option value="1024">1024</option>
+                <option value="2048">2048</option>
+            </select>
+        </div>
+        <div class="input-group">
             <label for="txt_spacing">Bar Spacing</label>
             <input id="txt_spacing" name="txt_spacing" type="number" onchange="setBarSpacing(value)"/>
+        </div>
+        <div class="input-group">
+            <label for="txt_clipMin">Clip Min</label>
+            <input id="txt_clipMin" name="txt_clipMin" type="number" onchange="setMinDecibels(value)"/>
+        </div>
+        <div class="input-group">
+            <label for="txt_clipMax">Clip Max</label>
+            <input id="txt_clipMax" name="txt_clipMax" type="number" onchange="setMaxDecibels(value)"/>
         </div>
         <div class="input-group">
             <label for="bool_spaceWrap">Bar Space Wrap</label>

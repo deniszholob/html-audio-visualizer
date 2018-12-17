@@ -13,6 +13,7 @@ const error_AudioApi = 'Web Audio API is not supported in this browser';
 
 // Variables
 let audioContext;
+let analyserNode;
 let streamBuffer = null;
 
 // Elements
@@ -45,6 +46,19 @@ function init() {
     drawVisualizer(el_audioCanvas, el_audioStream);
 }
 
+function setSamples(samples) {
+    VISUALIZER_SETTINGS.analyzerOptions.samples = parseInt(samples);
+    setAnalyserOptions();
+}
+function setMinDecibels(db) {
+    VISUALIZER_SETTINGS.analyzerOptions.minDecibels = parseInt(db);
+    setAnalyserOptions();
+}
+function setMaxDecibels(db) {
+    VISUALIZER_SETTINGS.analyzerOptions.maxDecibels = parseInt(db);
+    setAnalyserOptions();
+}
+
 /**
  * Fix blurriness due to wrong canvas sizing
  * @param {HTMLCanvasElement} canvasElement 
@@ -63,22 +77,26 @@ function fixCanvasDPI(canvasElement) {
     canvasElement.setAttribute('width', style_width * dpi);
 }
 
+function setAnalyserOptions(){
+    // Analyser Options (https://webaudio.github.io/web-audio-api/#dictdef-analyseroptions)
+    analyserNode.fftSize = VISUALIZER_SETTINGS.analyzerOptions.samples;
+    analyserNode.minDecibels = VISUALIZER_SETTINGS.analyzerOptions.minDecibels; // Bottom Clipping in db
+    analyserNode.maxDecibels = VISUALIZER_SETTINGS.analyzerOptions.maxDecibels; // Top Clipping in db
+}
+
 /**
  * 
  * @param {HTMLCanvasElement} canvasElement 
  * @param {HTMLAudioElement} audioElement 
  */
 function drawVisualizer(canvasElement, audioElement) {
-    let src = audioContext.createMediaElementSource(audioElement);
-    let analyserNode = audioContext.createAnalyser();
+    let audioContextSource = audioContext.createMediaElementSource(audioElement);
+    analyserNode = audioContext.createAnalyser();
 
-    src.connect(analyserNode);
+    audioContextSource.connect(analyserNode);
     analyserNode.connect(audioContext.destination); // connect the source to the context's destination (the speakers)
 
-    // Analyser Options (https://webaudio.github.io/web-audio-api/#dictdef-analyseroptions)
-    analyserNode.fftSize = VISUALIZER_SETTINGS.analyzerOptions.samples;
-    analyserNode.minDecibels = VISUALIZER_SETTINGS.analyzerOptions.minDecibels; // Bottom Clipping in db
-    analyserNode.maxDecibels = VISUALIZER_SETTINGS.analyzerOptions.maxDecibels; // Top Clipping in db
+    setAnalyserOptions();
 
     audioElement.play();
     renderVisualizerFrame(analyserNode, canvasElement);
@@ -115,8 +133,8 @@ function renderVisualizerFrame(analyserNode, canvasElement) {
     const BAR_COUNT = dataArray.length;
     const BAR_SPACING = VISUALIZER_SETTINGS.style.barSpacing;
     const BAR_WIDTH = VISUALIZER_SETTINGS.style.barSpaceWrap ?
-        (WIDTH - (BAR_COUNT+1) * BAR_SPACING) / BAR_COUNT:
-        (WIDTH - (BAR_COUNT-1) * BAR_SPACING) / BAR_COUNT;
+        (WIDTH - (BAR_COUNT + 1) * BAR_SPACING) / BAR_COUNT :
+        (WIDTH - (BAR_COUNT - 1) * BAR_SPACING) / BAR_COUNT;
 
     let barPosX = VISUALIZER_SETTINGS.style.barSpaceWrap ? BAR_SPACING : 0;
     // Loop through each frequency to generate bars
