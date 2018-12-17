@@ -13,7 +13,6 @@ const COLORS = {
     black: '#000000',
     white: '#ffffff',
     cyan: '#00ABEB',
-    blueDark: '#051937',
     greenAcid: '#A8EB12',
     pink: '#CB0ED9',
 }
@@ -29,7 +28,7 @@ const VISUALIZER_SETTINGS = {
         bgcolor: COLORS.black,
         barGradient: true,
         barColor1: COLORS.cyan,
-        barColor2: COLORS.pink,
+        barColor2: COLORS.greenAcid,
         barSpacing: 10, // In px
         barSpaceWrap: true,
     }
